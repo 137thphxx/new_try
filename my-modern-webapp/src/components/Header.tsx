@@ -34,7 +34,7 @@ const Header: React.FC = () => {
   return (
     <header className="header">
       <nav className="nav">
-        <div className="logo">AraMat Solutions</div>
+        <div className="logo">士功</div>
         <ul className="nav-links">
           {navLinks.map((link) => (
             <li key={link.href}>
