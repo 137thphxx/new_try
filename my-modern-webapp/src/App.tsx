@@ -7,6 +7,7 @@ import Downloads from './components/Downloads';
 import QuoteForm from './components/QuoteForm';
 import About from './components/About';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <About />
         <Contact />
       </main>
+      <Footer />
       {/* 如果有 Footer 组件，可以放在这里 */}
     </>
   );

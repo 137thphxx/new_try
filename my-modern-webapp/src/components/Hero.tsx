@@ -1,14 +1,22 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext'; // 1. 导入 Hook
+import { useLanguage } from '../context/LanguageContext';
+
+// 1. 从您的 assets 文件夹导入图片
+import heroBackgroundImage from '../assets/hero-background.jpg';
 
 const Hero: React.FC = () => {
-  const { t } = useLanguage(); // 2. 获取 t 函数
-  const imageUrl = "https://images.unsplash.com/photo-1581092921461-eab62e97a780?w=600&h=400&fit=crop&crop=center";
+  const { t } = useLanguage();
+
+  // 2. 创建一个样式对象
+  const heroStyle = {
+    backgroundImage: `url(${heroBackgroundImage})`
+  };
 
   return (
-    <section id="home" className="hero">
+    // 3. 将样式对象应用到 section 标签上
+    <section id="home" className="hero" style={heroStyle}>
+      <div className="hero-overlay"></div>
       <div className="hero-content">
-        {/* 3. 使用 t 函数进行翻译 */}
         <h1>{t('高性能芳纶材料', 'High-Performance Aramid Materials')}</h1>
         <p className="subtitle">
           {t(
@@ -16,7 +24,6 @@ const Hero: React.FC = () => {
             'Exceptional Protection & Performance Solutions for Extreme Environments'
           )}
         </p>
-        <img src={imageUrl} alt="Aramid Fiber" className="product-image" />
       </div>
     </section>
   );

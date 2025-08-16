@@ -1,4 +1,4 @@
-/* src/index.css */
+/* src/index.css - 修正版，包含完整的布局和新的颜色 */
 
 * {
     margin: 0;
@@ -8,8 +8,10 @@
 
 body {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background-color: #0f1419;
-    color: #ffffff;
+    /* 新的背景色：深炭黑 */
+    background-color: #111111;
+    /* 新的文字颜色：灰白 */
+    color: #f5f5f5;
     line-height: 1.6;
     overflow-x: hidden;
     transition: all 0.3s ease;
@@ -22,10 +24,10 @@ body {
     right: 20px;
     z-index: 1001;
     display: flex;
-    background: rgba(15, 20, 25, 0.9);
+    background: rgba(30, 30, 30, 0.9);
     border-radius: 25px;
     padding: 5px;
-    border: 1px solid #2a3441;
+    border: 1px solid #333;
     backdrop-filter: blur(10px);
 }
 
@@ -33,7 +35,7 @@ body {
     padding: 8px 16px;
     background: transparent;
     border: none;
-    color: #8892b0;
+    color: #aaa;
     cursor: pointer;
     border-radius: 20px;
     transition: all 0.3s ease;
@@ -41,13 +43,14 @@ body {
 }
 
 .lang-btn.active {
-    background: #3b82f6;
+    /* 新的强调色：活力橙 */
+    background: #ff4d29;
     color: #ffffff;
     font-weight: 500;
 }
 
 .lang-btn:hover:not(.active) {
-    color: #64b5f6;
+    color: #ffffff;
 }
 
 /* Header */
@@ -55,11 +58,12 @@ body {
     position: fixed;
     top: 0;
     width: 100%;
-    background: rgba(15, 20, 25, 0.95);
+    background: rgba(17, 17, 17, 0.95);
     backdrop-filter: blur(10px);
     z-index: 1000;
     padding: 1rem 0;
     transition: all 0.3s ease;
+    border-bottom: 1px solid #222;
 }
 
 .nav {
@@ -74,49 +78,70 @@ body {
 .logo {
     font-size: 1.5rem;
     font-weight: bold;
-    color: #3b82f6;
+    /* Logo 颜色改为白色 */
+    color: #ffffff;
 }
 
 .nav-links {
     display: flex;
     list-style: none;
     gap: 2rem;
-    padding: 0; /* 确保没有内边距 */
-    margin: 0;  /* 确保没有外边距 */
+    padding: 0;
+    margin: 0;
 }
 
 .nav-links .lang-content {
-    display: contents; /* 让这个 div 在布局上“消失”，其子元素直接继承父级的 flex 布局 */
+    display: contents;
 }
 
 .nav-links li {
-    display: inline-block; /* 兼容性写法，配合 flex 效果更好 */
+    display: inline-block;
 }
 
 .nav-links a {
-    color: #ffffff;
+    color: #f5f5f5;
     text-decoration: none;
     transition: color 0.3s ease;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .nav-links a:hover {
-    color: #64b5f6;
+    /* 悬停时使用新的强调色 */
+    color: #ff4d29;
 }
 
-section[id] {
-  scroll-margin-top: 80px; /* 你可以微调这个数值，直到效果完美 */
-}
 
 /* Hero Section */
 .hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 0 2rem;
-    background: radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.1) 0%, transparent 50%);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+  position: relative; /* 为遮罩层定位提供基准 */
+  overflow: hidden; /* 隐藏超出边界的内容 */
+  
+  /* --- 新增背景图样式 --- */
+  background-size: cover; /* 保证背景图铺满整个区域 */
+  background-position: center center; /* 居中显示 */
+  background-repeat: no-repeat; /* 背景不重复 */
+}
+
+/* --- 新增遮罩层样式 --- */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色遮罩 */
+  z-index: 1; /* 确保在背景之上 */
+}
+
+.hero-content {
+    position: relative; /* 提高层级 */
+    z-index: 2; /* 确保在遮罩层之上，从而文字可见 */
 }
 
 .hero-content h1 {
@@ -128,18 +153,9 @@ section[id] {
 
 .hero-content .subtitle {
     font-size: clamp(1rem, 4vw, 1.5rem);
-    color: #8892b0;
+    color: #aaa;
     margin-bottom: 3rem;
     font-weight: 300;
-}
-
-.product-image {
-    max-width: 600px;
-    width: 100%;
-    height: auto;
-    margin: 2rem 0;
-    border-radius: 20px;
-    box-shadow: 0 20px 60px rgba(59, 130, 246, 0.2);
 }
 
 /* Product Categories */
@@ -157,11 +173,10 @@ section[id] {
 }
 
 .category-card {
-    border: 1px solid #2a3441;
+    border: 1px solid #333;
     border-radius: 20px;
     padding: 2.5rem;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(10px);
+    background: #1c1c1c;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
@@ -174,9 +189,11 @@ section[id] {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, #3b82f6, #1d4ed8);
+    /* 渐变条改为新的强调色 */
+    background: #ff4d29;
     transform: scaleX(0);
     transition: transform 0.3s ease;
+    transform-origin: left;
 }
 
 .category-card:hover::before {
@@ -184,20 +201,22 @@ section[id] {
 }
 
 .category-card:hover {
-    border-color: #3b82f6;
+    /* 悬停时边框也使用强调色 */
+    border-color: #ff4d29;
     transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(59, 130, 246, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
 }
 
 .category-title {
     font-size: 1.5rem;
-    color: #3b82f6;
+    /* 标题颜色改为白色 */
+    color: #ffffff;
     margin-bottom: 1rem;
     font-weight: 400;
 }
 
 .category-desc {
-    color: #d1d5db;
+    color: #ccc;
     margin-bottom: 1.5rem;
     line-height: 1.7;
 }
@@ -218,19 +237,17 @@ section[id] {
 }
 
 .spec-name {
-    color: #9ca3af;
-    font-size: 0.9rem;
+    color: #888;
 }
 
 .spec-value {
-    color: #fff;
-    font-weight: 400;
+    color: #f5f5f5;
 }
 
 /* Applications Section */
 .applications {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, transparent 50%);
+    background: transparent;
 }
 
 .applications-content {
@@ -256,14 +273,15 @@ section[id] {
     text-align: center;
     padding: 2rem;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #2a3441;
+    background: #1c1c1c;
+    border: 1px solid #333;
     transition: all 0.3s ease;
 }
 
 .application-item:hover {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.1);
+    /* 悬停时边框和背景色改变 */
+    border-color: #ff4d29;
+    background: #222;
     transform: scale(1.05);
 }
 
@@ -275,12 +293,12 @@ section[id] {
 .application-title {
     font-size: 1.3rem;
     margin-bottom: 1rem;
-    color: #3b82f6;
+    /* 标题颜色改为白色 */
+    color: #ffffff;
 }
 
 .application-desc {
-    color: #d1d5db;
-    line-height: 1.6;
+    color: #ccc;
 }
 
 /* About Section */
@@ -304,7 +322,6 @@ section[id] {
 /* Downloads Section */
 .downloads {
     padding: 5rem 2rem;
-    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
 }
 
 .downloads-content {
@@ -320,21 +337,20 @@ section[id] {
 }
 
 .download-category {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #2a3441;
+    background: #1c1c1c;
+    border: 1px solid #333;
     border-radius: 15px;
     padding: 2rem;
     transition: all 0.3s ease;
 }
 
 .download-category:hover {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.1);
+    border-color: #ff4d29;
     transform: translateY(-5px);
 }
 
 .download-category h3 {
-    color: #3b82f6;
+    color: #ffffff;
     margin-bottom: 1.5rem;
     font-size: 1.3rem;
     display: flex;
@@ -348,7 +364,7 @@ section[id] {
     align-items: center;
     padding: 1rem;
     margin: 0.5rem 0;
-    background: rgba(255, 255, 255, 0.05);
+    background: #252525;
     border-radius: 8px;
     border: 1px solid transparent;
     transition: all 0.3s ease;
@@ -356,8 +372,8 @@ section[id] {
 }
 
 .download-item:hover {
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.15);
+    border-color: #ff4d29;
+    background: #333;
 }
 
 .download-info {
@@ -371,13 +387,14 @@ section[id] {
 
 .download-meta {
     font-size: 0.85rem;
-    color: #9ca3af;
+    color: #888;
 }
 
 .download-btn {
-    background: #3b82f6;
-    color: #ffffff;
-    border: none;
+    /* 按钮样式改为描边“幽灵按钮” */
+    background: transparent;
+    color: #ff4d29;
+    border: 1px solid #ff4d29;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     cursor: pointer;
@@ -389,14 +406,15 @@ section[id] {
 }
 
 .download-btn:hover {
-    background: #1d4ed8;
+    /* 悬停时填充背景色 */
+    background: #ff4d29;
+    color: #ffffff;
     transform: scale(1.05);
 }
 
 /* Quote Form Section */
 .quote {
     padding: 5rem 2rem;
-    background: rgba(59, 130, 246, 0.03);
 }
 
 .quote-content {
@@ -405,12 +423,11 @@ section[id] {
 }
 
 .quote-form {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #2a3441;
+    background: #1c1c1c;
+    border: 1px solid #333;
     border-radius: 20px;
     padding: 3rem;
     margin-top: 3rem;
-    backdrop-filter: blur(10px);
 }
 
 .form-row {
@@ -426,7 +443,8 @@ section[id] {
 }
 
 .form-group label {
-    color: #3b82f6;
+    /* 表单标签颜色改为浅灰 */
+    color: #aaa;
     margin-bottom: 0.5rem;
     font-weight: 500;
 }
@@ -434,11 +452,11 @@ section[id] {
 .form-group input,
 .form-group select,
 .form-group textarea {
-    background: rgba(255, 255, 255, 0.08);
-    border: 1px solid #374151;
+    background: #252525;
+    border: 1px solid #444;
     border-radius: 8px;
     padding: 0.8rem;
-    color: #fff;
+    color: #f5f5f5;
     transition: all 0.3s ease;
     font-family: inherit;
 }
@@ -447,8 +465,9 @@ section[id] {
 .form-group select:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #3b82f6;
-    background: rgba(59, 130, 246, 0.1);
+    /* 焦点颜色改为强调色 */
+    border-color: #ff4d29;
+    background: #2a2a2a;
 }
 
 .form-group textarea {
@@ -474,14 +493,20 @@ section[id] {
 }
 
 .checkbox-group label {
-    color: #d1d5db;
+    color: #ccc;
     font-size: 0.9rem;
     line-height: 1.5;
     cursor: pointer;
 }
 
+.checkbox-group a {
+    /* 链接颜色改为强调色 */
+    color: #ff4d29;
+}
+
 .submit-btn {
-    background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+    /* 提交按钮背景改为强调色 */
+    background: #ff4d29;
     color: #ffffff;
     border: none;
     padding: 1rem 2.5rem;
@@ -496,14 +521,14 @@ section[id] {
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+    /* 阴影颜色也改为强调色 */
+    box-shadow: 0 10px 20px rgba(255, 77, 41, 0.3);
 }
 
 .submit-btn:active {
     transform: translateY(0);
 }
 
-/* Form Success Message */
 .form-message {
     display: none;
     padding: 1rem;
@@ -513,9 +538,9 @@ section[id] {
 }
 
 .form-message.success {
-    background: rgba(59, 130, 246, 0.15);
-    border: 1px solid #3b82f6;
-    color: #64b5f6;
+    background: rgba(255, 77, 41, 0.15);
+    border: 1px solid #ff4d29;
+    color: #ff4d29;
 }
 
 .form-message.error {
@@ -523,9 +548,11 @@ section[id] {
     border: 1px solid #ef4444;
     color: #fca5a5;
 }
+
+/* Contact Section */
 .contact {
     padding: 5rem 2rem;
-    background: rgba(0, 255, 148, 0.02);
+    background: transparent;
 }
 
 .contact-content {
@@ -544,21 +571,19 @@ section[id] {
 .contact-item {
     padding: 2rem;
     border-radius: 15px;
-    background: rgba(255, 255, 255, 0.03);
+    background: #1c1c1c;
     border: 1px solid #333;
     transition: all 0.3s ease;
     cursor: pointer;
 }
 
 .contact-item:hover {
-    border-color: #00ff94;
-    background: rgba(0, 255, 148, 0.05);
-    transform: translateY(-5px);
+    border-color: #ff4d29;
 }
 
 .contact-icon {
     font-size: 2rem;
-    color: #00ff94;
+    color: #ff4d29;
     margin-bottom: 1rem;
 }
 
@@ -574,7 +599,7 @@ section[id] {
 }
 
 .contact-info a {
-    color: #00ff94;
+    color: #ff4d29;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -583,26 +608,9 @@ section[id] {
     color: #ffffff;
 }
 
-/* Scrolling Text Animation */
+/* Scrolling Text Animation - 移除 */
 .scrolling-text {
-    white-space: nowrap;
-    overflow: hidden;
-    background: #00ff94;
-    color: #0a0a0a;
-    padding: 1rem 0;
-    margin: 3rem 0;
-}
-
-.scrolling-content {
-    display: inline-block;
-    animation: scroll 25s linear infinite;
-    font-weight: 500;
-    font-size: 1.1rem;
-}
-
-@keyframes scroll {
-    0% { transform: translateX(100%); }
-    100% { transform: translateX(-100%); }
+    display: none;
 }
 
 /* Mobile Responsive */
@@ -610,17 +618,14 @@ section[id] {
     .nav-links {
         display: none;
     }
-    
     .language-toggle {
         top: 15px;
         right: 15px;
         scale: 0.9;
     }
-    
     .hero {
         padding: 8rem 1rem 4rem;
     }
-    
     .product-categories,
     .applications,
     .downloads,
@@ -629,71 +634,90 @@ section[id] {
     .contact {
         padding: 3rem 1rem;
     }
-    
     .categories-grid,
-    .downloads-grid {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-    
-    .applications-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .contact-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .quote-form {
-        padding: 2rem;
-    }
-    
+    .downloads-grid,
+    .applications-grid,
+    .contact-grid,
     .form-row {
         grid-template-columns: 1fr;
+    }
+    .quote-form {
+        padding: 2rem;
     }
 }
 
 /* Language Content Toggle */
-/* This is now handled by React, but we can keep it for reference or other uses */
 .lang-content {
-    display: none;
-}
-
-.lang-content.active {
-    display: block;
+    display: contents; /* Use contents to avoid breaking flex/grid layouts */
 }
 
 /* Smooth Scroll */
 html {
     scroll-behavior: smooth;
 }
+section[id] {
+  scroll-margin-top: 80px;
+}
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
-
 ::-webkit-scrollbar-track {
     background: #1a1a1a;
 }
-
 ::-webkit-scrollbar-thumb {
-    background: #333;
+    background: #444;
     border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-    background: #00ff94;
+    /* 滚动条悬停颜色改为强调色 */
+    background: #ff4d29;
 }
 
-/* Animation classes from JS part */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Footer Section */
+.site-footer {
+  background-color: #111111; /* 与 body 背景色一致 */
+  border-top: 1px solid #333; /* 在页脚顶部添加一条分割线 */
+  padding: 2rem 0;
+  color: #888; /* 页脚文字颜色稍暗，以示区分 */
+  font-size: 0.85rem;
+  text-transform: uppercase; /* 文字大写，符合参考图风格 */
+  letter-spacing: 0.05em;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between; /* 关键：让三部分在容器内均匀分布 */
+  align-items: center;
+}
+
+.footer-left {
+  flex: 1; /* 占据左侧空间 */
+  text-align: left;
+}
+
+.footer-center {
+  flex: 0 0 auto; /* Logo 不伸缩，保持原始大小 */
+}
+
+.footer-right {
+  flex: 1; /* 占据右侧空间 */
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem; /* 链接之间的间距 */
+}
+
+.footer-right a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-right a:hover {
+  color: #ffffff; /* 鼠标悬停时变亮 */
 }
