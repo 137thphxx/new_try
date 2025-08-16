@@ -1,4 +1,4 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+import React, { createContext, useState, useContext, type ReactNode } from 'react'; // 在 ReactNode 前添加 type
 
 // 定义语言类型
 type Language = 'zh' | 'en';
