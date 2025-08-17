@@ -34,15 +34,30 @@ const Header: React.FC = () => {
         }
       }
     } else {
-      // 如果是普通页面链接，直接跳转
-      navigate(path);
+      // 如果是普通页面链接 (例如 '/', '/products')
+      
+      // *** 这是新增的关键逻辑 ***
+      // 如果要跳转的路径就是当前路径 (例如在首页点击“首页”)
+      if (location.pathname === path) {
+        // 手动执行平滑滚动到页面顶部
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      } else {
+        // 如果是跳转到新页面，正常导航
+        // (ScrollToTop 组件会自动处理新页面的滚动)
+        navigate(path);
+      }
     }
   };
 
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
-        <Link to="/" className={styles.logo}>士功芳纶材料有限公司</Link>
+        <Link to="/" className={styles.logo} onClick={(e) => { e.preventDefault(); handleNavClick('/'); }}>
+          士功芳纶材料
+        </Link>
         <ul className={styles.nav_links}>
           <li>
             <Link to="/" onClick={(e) => { e.preventDefault(); handleNavClick('/'); }}>{t('首页', 'Home')}</Link>
