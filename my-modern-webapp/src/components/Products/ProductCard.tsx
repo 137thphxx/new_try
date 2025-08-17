@@ -1,5 +1,6 @@
 import React from 'react';
 
+import styles from './Products.module.css';
 // 定义每一个规格项的类型
 interface Spec {
   name: string;
@@ -15,15 +16,15 @@ export interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ title, description, specs }) => {
   return (
-    <div className="category-card">
-      <h3 className="category-title">{title}</h3>
-      <p className="category-desc">{description}</p>
-      <ul className="category-specs">
+    <div className={styles["category-card"]}>
+      <h3 className={styles["category-title"]}>{title}</h3>
+      <p className={styles["category-desc"]}>{description}</p>
+      <ul className={styles["category-specs"]}>
         {/* 使用 map 循环动态渲染规格列表 */}
         {specs.map((spec) => (
           <li key={spec.name}>
-            <span className="spec-name">{spec.name}</span>
-            <span className="spec-value">{spec.value}</span>
+            <span className={styles["spec-name"]}>{spec.name}</span>
+            <span className={styles["spec-value"]}>{spec.value}</span>
           </li>
         ))}
       </ul>

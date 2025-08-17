@@ -1,0 +1,46 @@
+/* Footer Section */
+.site-footer {
+  background-color: #111111; /* 与 body 背景色一致 */
+  border-top: 1px solid #333; /* 在页脚顶部添加一条分割线 */
+  padding: 2rem 0;
+  color: #888; /* 页脚文字颜色稍暗，以示区分 */
+  font-size: 0.85rem;
+  text-transform: uppercase; /* 文字大写，符合参考图风格 */
+  letter-spacing: 0.05em;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between; /* 关键：让三部分在容器内均匀分布 */
+  align-items: center;
+}
+
+.footer-left {
+  flex: 1; /* 占据左侧空间 */
+  text-align: left;
+}
+
+.footer-center {
+  flex: 0 0 auto; /* Logo 不伸缩，保持原始大小 */
+}
+
+.footer-right {
+  flex: 1; /* 占据右侧空间 */
+  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1.5rem; /* 链接之间的间距 */
+}
+
+.footer-right a {
+  color: #888;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.footer-right a:hover {
+  color: #ffffff; /* 鼠标悬停时变亮 */
+}

@@ -1,13 +1,16 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
+
+import styles from './About.module.css';
+
 
 const About: React.FC = () => {
   const { t } = useLanguage();
 
   return (
-    <section id="about" className="about">
-      <div className="about-content">
-        <h2 className="section-title">{t('关于我们', 'About Us')}</h2>
+    <section id="about" className={styles.about}>
+      <div className={styles.content}>
+        <h2 className={styles.title}>{t('关于我们', 'About Us')}</h2>
         <p className="about-text">
           {t(
             '我们是芳纶材料领域的专业制造商，致力于研发和生产高性能芳纶纤维及相关制品。凭借先进的生产工艺和严格的质量控制体系，为全球客户提供可靠的防护解决方案。',

@@ -1,7 +1,10 @@
 import React from 'react';
 import ApplicationItem from './ApplicationItem';
 import type { ApplicationItemProps } from './ApplicationItem';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
+
+import styles from './Applications.module.css';
+
 
 const applicationsDataZh: ApplicationItemProps[] = [
   { icon: '🛡️', title: '军用防护', description: '防弹衣、头盔、防护装备等军用防护产品，提供卓越的弹道防护性能。' },
@@ -22,10 +25,10 @@ const Applications: React.FC = () => {
   const applicationsData = language === 'zh' ? applicationsDataZh : applicationsDataEn;
 
   return (
-    <section id="applications" className="applications">
-      <div className="applications-content">
-        <h2 className="section-title">{t('应用领域', 'Applications')}</h2>
-        <div className="applications-grid">
+    <section id="applications" className={styles.applications}>
+      <div className={styles.content}>
+        <h2 className={"section-title"}>{t('应用领域', 'Applications')}</h2>
+        <div className={styles.grid}>
           {applicationsData.map(app => (
             <ApplicationItem
               key={app.title}

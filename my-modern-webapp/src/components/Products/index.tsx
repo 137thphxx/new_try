@@ -1,7 +1,10 @@
 import React from 'react';
 import ProductCard from './ProductCard';
 import type { ProductCardProps } from './ProductCard';
-import { useLanguage } from '../context/LanguageContext'; // 1. 导入 Hook
+import { useLanguage } from '../../context/LanguageContext'; // 1. 导入 Hook
+
+import styles from './Products.module.css';
+
 
 // 中文数据
 const productsDataZh: ProductCardProps[] = [
@@ -79,9 +82,9 @@ const Products: React.FC = () => {
   const productsData = language === 'zh' ? productsDataZh : productsDataEn;
 
   return (
-    <section id="products" className="product-categories">
-      <h2 className="section-title">{t('产品系列', 'Product Series')}</h2>
-      <div className="categories-grid">
+    <section id="products" className={styles["product-categories"]}>
+      <h2 className={styles["section-title"]}>{t('产品系列', 'Product Series')}</h2>
+      <div className={styles["categories-grid"]}>
         {productsData.map((product) => (
           <ProductCard
             key={product.title}

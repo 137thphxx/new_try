@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
+
+import styles from './QuoteFrom.module.css';
 
 const QuoteForm: React.FC = () => {
   const { t } = useLanguage();
@@ -51,35 +53,35 @@ const QuoteForm: React.FC = () => {
   };
   
   return (
-    <section id="quote" className="quote">
-      <div className="quote-content">
-        <div className="lang-content active" data-lang="zh">
-          <h2 className="section-title">{t('产品询价', 'Request Quote')}</h2>
-          <form className="quote-form" onSubmit={handleSubmit}>
+    <section id="quote" className={styles["quote"]}>
+      <div className={styles["quote-content"]}>
+        <div className={styles["lang-content active"]} data-lang="zh">
+          <h2 className={styles["section-title"]}>{t('产品询价', 'Request Quote')}</h2>
+          <form className={styles["quote-form"]} onSubmit={handleSubmit}>
             
-            <div className="form-row">
-              <div className="form-group">
+            <div className={styles["form-row"]}>
+              <div className={styles["form-group"]}>
                 <label htmlFor="company">{t('公司名称 *', 'Company Name *')}</label>
                 <input type="text" id="company" name="company" value={formData.company} onChange={handleChange} required />
               </div>
-              <div className="form-group">
+              <div className={styles["form-group"]}>
                 <label htmlFor="contact">{t('联系人 *', 'Contact Person *')}</label>
                 <input type="text" id="contact" name="contact" value={formData.contact} onChange={handleChange} required />
               </div>
             </div>
             
-            <div className="form-row">
-                <div className="form-group">
+            <div className={styles["form-row"]}>
+                <div className={styles["form-group"]}>
                     <label htmlFor="email">{t('邮箱地址 *', 'Email Address *')}</label>
                     <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} required />
                 </div>
-                <div className="form-group">
+                <div className={styles["form-group"]}>
                     <label htmlFor="phone">{t('联系电话', 'Phone Number')}</label>
                     <input type="tel" id="phone" name="phone" value={formData.phone} onChange={handleChange} />
                 </div>
             </div>
 
-            <div className="form-group">
+            <div className={styles["form-group"]}>
                 <label htmlFor="products">{t('感兴趣的产品 *', 'Product of Interest *')}</label>
                 <select id="products" name="products" value={formData.products} onChange={handleChange} required>
                     <option value="">{t('请选择产品类型', 'Please Select Product Type')}</option>
@@ -89,19 +91,19 @@ const QuoteForm: React.FC = () => {
                 </select>
             </div>
             
-            <div className="form-group">
+            <div className={styles["form-group"]}>
                 <label htmlFor="requirements">{t('具体需求描述', 'Detailed Requirements')}</label>
                 <textarea id="requirements" name="requirements" value={formData.requirements} onChange={handleChange} placeholder={t('请详细描述您的技术要求...', 'Please describe your technical requirements...')}></textarea>
             </div>
 
-            <div className="checkbox-group">
+            <div className={styles["checkbox-group"]}>
                 <input type="checkbox" id="privacy" name="privacy" checked={formData.privacy} onChange={handleChange} required />
                 <label htmlFor="privacy">{t('我已阅读并同意', 'I have read and agree to the ')}<a href="#" style={{ color: '#00ff94' }}>{t('隐私政策', 'Privacy Policy')}</a></label>
             </div>
             
-            <button type="submit" className="submit-btn">{t('提交询价申请', 'Submit Quote Request')}</button>
+            <button type="submit" className={styles["submit-btn"]}>{t('提交询价申请', 'Submit Quote Request')}</button>
 
-            {message && <div className="form-message success" style={{display: 'block'}}>{message}</div>}
+            {message && <div className={styles["form-message success"]} style={{display: 'block'}}>{message}</div>}
           
           </form>
         </div>

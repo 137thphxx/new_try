@@ -1,5 +1,9 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext'; // 导入 Hook
+import { useLanguage } from '../../context/LanguageContext'; // 导入 Hook
+
+import styles from './Downloads.module.css';
+
+// 定义这个组件的 Props
 
 export interface DownloadItemProps {
   title: string;
@@ -15,12 +19,12 @@ const DownloadItem: React.FC<DownloadItemProps> = ({ title, meta, fileName }) =>
   };
 
   return (
-    <div className="download-item" data-file={fileName} onClick={handleDownload}>
-      <div className="download-info">
-        <div className="download-title">{title}</div>
-        <div className="download-meta">{meta}</div>
+    <div className={styles["download-item"]} data-file={fileName} onClick={handleDownload}>
+      <div className={styles["download-info"]}>
+        <div className={styles["download-title"]}>{title}</div>
+        <div className={styles["download-meta"]}>{meta}</div>
       </div>
-      <button className="download-btn">
+      <button className={styles["download-btn"]}>
         <span>📥</span> {t('下载', 'Download')} {/* 修改按钮文本 */}
       </button>
     </div>

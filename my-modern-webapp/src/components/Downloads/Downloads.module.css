@@ -1,0 +1,92 @@
+/* Downloads Section */
+.downloads {
+    padding: 5rem 2rem;
+}
+
+.downloads-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.downloads-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.download-category {
+    background: #1c1c1c;
+    border: 1px solid #333;
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.download-category:hover {
+    border-color: #ff4d29;
+    transform: translateY(-5px);
+}
+
+.download-category h3 {
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    background: #252525;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.download-item:hover {
+    border-color: #ff4d29;
+    background: #333;
+}
+
+.download-info {
+    flex: 1;
+}
+
+.download-title {
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+}
+
+.download-meta {
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.download-btn {
+    /* 按钮样式改为描边“幽灵按钮” */
+    background: transparent;
+    color: #ff4d29;
+    border: 1px solid #ff4d29;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.download-btn:hover {
+    /* 悬停时填充背景色 */
+    background: #ff4d29;
+    color: #ffffff;
+    transform: scale(1.05);
+}

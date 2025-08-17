@@ -1,8 +1,8 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
 
-// 假设您有一个 Logo 文件放在 public 文件夹下
-// 或者您可以直接在这里使用一个 SVG 图标
+import styles from './Footer.module.css';
+
 const LogoIcon = () => (
   <svg 
     width="32" 
@@ -28,17 +28,19 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="site-footer">
-      <div className="footer-content">
-        <div className="footer-left">
+    // 错误: styles.sitefooter -> 正确: styles.siteFooter
+    <footer className={styles['site-footer']}>
+      {/* 同样修正以下所有类名 */}
+      <div className={styles['footer-content']}>
+        <div className={styles['footer-left']}>
           {/* 版权信息将根据年份自动更新 */}
           士功 © {currentYear} ALL RIGHTS RESERVED
         </div>
-        <div className="footer-center">
+        <div className={styles['footer-center']}>
           {/* Logo 位置 */}
           <LogoIcon />
         </div>
-        <div className="footer-right">
+        <div className={styles['footer-right']}>
           <a href="/privacy-policy">{t('隐私政策', 'PRIVACY POLICY')}</a>
           <a href="/terms-of-use">{t('使用条款', 'TERMS OF USE')}</a>
         </div>

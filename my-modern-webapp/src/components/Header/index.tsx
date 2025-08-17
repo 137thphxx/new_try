@@ -1,5 +1,8 @@
 import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
+
+import styles from './Header.module.css';
+
 
 const Header: React.FC = () => {
   const { t } = useLanguage();
@@ -32,10 +35,10 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="header">
-      <nav className="nav">
-        <div className="logo">士功</div>
-        <ul className="nav-links">
+    <header className={styles.header}>
+      <nav className={styles.nav}>
+        <div className={styles.logo}>士功</div>
+        <ul className={styles.links}>
           {navLinks.map((link) => (
             <li key={link.href}>
               {/* 5. 为 a 标签添加 onClick 事件 */}

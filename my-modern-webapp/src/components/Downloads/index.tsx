@@ -1,6 +1,8 @@
 import React from 'react';
 import DownloadCategory from './DownloadCategory';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../../context/LanguageContext';
+
+import styles from './Downloads.module.css';
 
 // 中文数据
 const downloadDataZh = [
@@ -41,10 +43,10 @@ const Downloads: React.FC = () => {
   const downloadData = language === 'zh' ? downloadDataZh : downloadDataEn;
 
   return (
-    <section id="downloads" className="downloads">
-      <div className="downloads-content">
-        <h2 className="section-title">{t('资料下载中心', 'Download Center')}</h2>
-        <div className="downloads-grid">
+    <section id="downloads" className={styles["downloads"]}>
+      <div className={styles["downloads-content"]}>
+        <h2 className={styles["section-title"]}>{t('资料下载中心', 'Download Center')}</h2>
+        <div className={styles["downloads-grid"]}>
           {downloadData.map(category => (
             <DownloadCategory
               key={category.categoryTitle}

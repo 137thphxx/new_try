@@ -2,6 +2,8 @@ import React from 'react'; // 确保 React 也被导入
 import DownloadItem from './DownloadItem';
 import type { DownloadItemProps } from './DownloadItem'; // 使用 'import type'
 
+
+import styles from './Downloads.module.css';
 // 定义这个组件的 Props
 interface DownloadCategoryProps {
   categoryTitle: string;
@@ -10,7 +12,7 @@ interface DownloadCategoryProps {
 
 const DownloadCategory: React.FC<DownloadCategoryProps> = ({ categoryTitle, items }) => {
   return (
-    <div className="download-category">
+    <div className={styles["download-category"]}>
       <h3>{categoryTitle}</h3>
       {/* 使用 map 循环动态渲染 DownloadItem 组件 */}
       {items.map((item) => (

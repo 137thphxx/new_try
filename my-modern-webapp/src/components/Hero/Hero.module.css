@@ -1,0 +1,46 @@
+/* Hero Section */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 2rem;
+  position: relative; /* 为遮罩层定位提供基准 */
+  overflow: hidden; /* 隐藏超出边界的内容 */
+  
+  /* --- 新增背景图样式 --- */
+  background-size: cover; /* 保证背景图铺满整个区域 */
+  background-position: center center; /* 居中显示 */
+  background-repeat: no-repeat; /* 背景不重复 */
+}
+
+/* --- 新增遮罩层样式 --- */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* 半透明黑色遮罩 */
+  z-index: 1; /* 确保在背景之上 */
+}
+
+.content {
+    position: relative; /* 提高层级 */
+    z-index: 2; /* 确保在遮罩层之上，从而文字可见 */
+}
+
+.content h1 {
+    font-size: clamp(2rem, 8vw, 4rem);
+    font-weight: 300;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
+}
+
+.subtitle {
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    color: #cecccc;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
