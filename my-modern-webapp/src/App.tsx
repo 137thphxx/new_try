@@ -1,31 +1,25 @@
-import LanguageToggle from './components/LanguageToggle';
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Products from './components/Products';
-import Applications from './components/Applications';
-import Downloads from './components/Downloads';
-import QuoteForm from './components/QuoteForm';
-import About from './components/About';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import HomePage from './pages/HomePage';
+import ProductsPage from './pages/ProductsPage';
+import DownloadsPage from './pages/DownloadsPage';
+import QuotePage from './pages/QuotePage';
 
 function App() {
   return (
-    <>
-      <LanguageToggle />
-      <Header />
-      <main>
-        <Hero />
-        <Products />
-        <Applications />
-        <Downloads />
-        <QuoteForm />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
-      {/* 如果有 Footer 组件，可以放在这里 */}
-    </>
+    <Routes>
+      {/* 所有页面都使用 Layout 组件（带 Header 和 Footer） */}
+      <Route path="/" element={<Layout />}>
+        {/* 默认首页 */}
+        <Route index element={<HomePage />} />
+        {/* 产品页面 */}
+        <Route path="products" element={<ProductsPage />} />
+        {/* 资料下载页面 */}
+        <Route path="downloads" element={<DownloadsPage />} />
+        {/* 在这里可以添加更多页面，比如 path="about" 等 */}
+        <Route path="quote" element={<QuotePage />} />
+      </Route>
+    </Routes>
   );
 }
 

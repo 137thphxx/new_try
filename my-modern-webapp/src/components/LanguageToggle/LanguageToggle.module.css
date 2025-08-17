@@ -1,0 +1,36 @@
+/* Language Toggle */
+.language-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    display: flex;
+    background: rgba(30, 30, 30, 0.9);
+    border-radius: 25px;
+    padding: 5px;
+    border: 1px solid #333;
+    backdrop-filter: blur(10px);
+}
+
+.lang-btn {
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    color: #aaa;
+    cursor: pointer;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+}
+
+.lang-btn.active {
+    /* 新的强调色：活力橙 */
+    background: #ff4d29;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.lang-btn:hover:not(.active) {
+    color: #ffffff;
+}
+
