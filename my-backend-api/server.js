@@ -2,35 +2,33 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 const nodemailer = require('nodemailer');
-const rateLimit = require('express-rate-limit'); // 1. 引入限流插件
+const rateLimit = require('express-rate-limit');
+require('dotenv').config(); // 如果本地有 .env 文件，这行能帮忙读取，没有也不影响
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001; // 适配 Render 的动态端口
+
+// --- 修复 1: 解决 Render 上的 Rate Limit 报错 ---
+// 告诉 Express 它位于代理之后 (Render 的负载均衡器)
+app.set('trust proxy', 1); 
 
 app.use(cors());
 app.use(express.json());
 
-// --- 安全配置：创建限流器 ---
-// 规则：同一个 IP 地址，在 15 分钟内，最多只能请求 5 次
+// --- 限流配置 ---
 const emailLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 分钟
-  max: 5, // 限制次数
-  message: { 
-    success: false, 
-    message: '请求过于频繁，请 15 分钟后再试。' // 超限后的返回信息
-  },
-  standardHeaders: true, // 返回 RateLimit-* 头信息
+  windowMs: 15 * 60 * 1000, 
+  max: 5, 
+  message: { success: false, message: '请求过于频繁，请 15 分钟后再试。' },
+  standardHeaders: true, 
   legacyHeaders: false,
 });
 
-// --- 辅助函数：验证邮箱格式 ---
 const isValidEmail = (email) => {
-  // 这是一个标准的邮箱验证正则表达式
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(String(email).toLowerCase());
 };
 
-// --- 1. 文件下载 API (保持不变) ---
 app.get('/download/:fileName', (req, res) => {
   const { fileName } = req.params;
   const filePath = path.join(__dirname, 'files', fileName);
@@ -39,47 +37,58 @@ app.get('/download/:fileName', (req, res) => {
   });
 });
 
-// --- 2. 邮件发送 API (已加固) ---
-// 注意：我们在路径后面加上了 emailLimiter，表示这个接口受限流保护
+// --- 邮件发送 API ---
 app.post('/api/send-email', emailLimiter, async (req, res) => {
   const { name, email, message } = req.body;
 
-  // --- 安全检查 A：必填项检查 ---
   if (!name || !email || !message) {
     return res.status(400).json({ success: false, message: '所有字段都是必填的' });
   }
 
-  // --- 安全检查 B：邮箱格式检查 ---
   if (!isValidEmail(email)) {
     return res.status(400).json({ success: false, message: '请输入有效的电子邮箱地址' });
   }
 
-  // --- 这里的 transporter 配置请保留您刚才填好的真实账号 ---
+  // --- 修复 2: 使用更稳定的连接配置解决 ETIMEDOUT ---
+  // 不再使用 service: 'gmail'，而是显式指定 host 和 port
   const transporter = nodemailer.createTransport({
-    service: 'gmail', 
+    host: 'smtp.gmail.com',
+    port: 465, // 强制使用 SSL 端口，这在云端更不容易被墙
+    secure: true, // 使用 SSL
     auth: {
-      user: 'perry971221@gmail.com', // 记得确认这里是您的真实配置
-      pass: 'zjpg yhzs uoue iqxj'      // 记得确认这里是您的真实配置
+      // 优先读取环境变量 (Render 上设置的)
+      // 这里的 '您的...' 只是本地兜底，Render 上一定要配置环境变量
+      user: process.env.EMAIL_USER || 'perry971221@gmail.com', 
+      pass: process.env.EMAIL_PASS || 'zjpg yhzs uoue iqxj'
     }
   });
 
   const mailOptions = {
-    from: email, 
-    to: 'perry971221@gmail.com', 
-    subject: `【新询价】来自客户 ${name}`,
-    text: `姓名: ${name}\n邮箱: ${email}\n内容:\n${message}`
+    from: `"${name}" <${process.env.EMAIL_USER}>`, // 发件人最好是自己的邮箱，避免被当成垃圾邮件
+    replyTo: email, // 设置回复地址为客户的邮箱，这样您点回复时直接发给客户
+    to: process.env.EMAIL_USER, // 发给自己
+    subject: `【官网新询价】来自 ${name}`,
+    text: `
+      客户姓名: ${name}
+      客户邮箱: ${email}
+      ---------------------------
+      咨询内容:
+      ${message}
+    `
   };
 
   try {
+    console.log("正在尝试发送邮件...");
     await transporter.sendMail(mailOptions);
     console.log("✅ 邮件发送成功");
     res.status(200).json({ success: true, message: '邮件发送成功' });
   } catch (error) {
-    console.error("❌ 发送失败:", error);
+    console.error("❌ 发送失败详情:", error);
     res.status(500).json({ success: false, message: '服务器繁忙，请稍后再试' });
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`🎉 安全服务器运行在 http://localhost:${PORT}`);
+// 这里的 host '0.0.0.0' 对 Render 很重要，确保它能被外部访问
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`🎉 服务器运行在端口 ${PORT}`);
 });
