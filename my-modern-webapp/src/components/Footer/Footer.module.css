@@ -44,3 +44,26 @@
 .footer-right a:hover {
   color: #ffffff; /* 鼠标悬停时变亮 */
 }
+
+/* 链接的基础样式 */
+.link {
+  color: #888; /* 默认灰色，低调一点 */
+  text-decoration: none; /* 去掉默认下划线 */
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+/* 鼠标悬停时的效果 */
+.link:hover {
+  color: #fff; /* 悬停变亮白 */
+  text-decoration: underline; /* 悬停出现下划线 */
+}
+
+/* 如果你想让它们横向排列 */
+.links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}

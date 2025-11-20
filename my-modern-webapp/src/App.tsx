@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import DownloadsPage from './pages/DownloadsPage';
 import QuotePage from './pages/QuotePage';
+import PrivacyPage from './pages/PrivacyPage'; // 新增
+import TermsPage from './pages/TermsPage';     // 新增
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path="downloads" element={<DownloadsPage />} />
         {/* 在这里可以添加更多页面，比如 path="about" 等 */}
         <Route path="quote" element={<QuotePage />} />
+        <Route path="/privacy" element={<PrivacyPage />} />
+        <Route path="/terms" element={<TermsPage />} />
       </Route>
     </Routes>
   );

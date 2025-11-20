@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-
+import { Link } from 'react-router-dom';
 import styles from './Footer.module.css';
 
 const LogoIcon = () => (
@@ -28,6 +28,7 @@ const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
+    
     // 错误: styles.sitefooter -> 正确: styles.siteFooter
     <footer className={styles['site-footer']}>
       {/* 同样修正以下所有类名 */}
@@ -40,9 +41,18 @@ const Footer: React.FC = () => {
           {/* Logo 位置 */}
           <LogoIcon />
         </div>
-        <div className={styles['footer-right']}>
-          <a href="/privacy-policy">{t('隐私政策', 'PRIVACY POLICY')}</a>
-          <a href="/terms-of-use">{t('使用条款', 'TERMS OF USE')}</a>
+        <div className={styles.links}>
+          <Link to="/privacy" className={styles.link}>
+            {/* 3. 使用双语 */}
+            {t('隐私政策', 'Privacy Policy')}
+          </Link>
+        
+          <span style={{ margin: '0 10px', color: '#444' }}>|</span>
+        
+          <Link to="/terms" className={styles.link}>
+            {/* 3. 使用双语 */}
+            {t('使用条款', 'Terms of Use')}
+          </Link>
         </div>
       </div>
     </footer>
