@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from './QuoteForm.module.css';
+import { API_BASE_URL } from '../../config';
 
 const QuoteForm: React.FC = () => {
   // 定义表单状态
@@ -26,7 +27,7 @@ const QuoteForm: React.FC = () => {
 
     try {
       // 发送数据给后端
-      const response = await fetch('http://localhost:3001/api/send-email', {
+      const response = await fetch(`${API_BASE_URL}/api/send-email`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', // 告诉后端我发的是 JSON

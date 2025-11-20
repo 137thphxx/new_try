@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import styles from './DownloadItem.module.css'; // 假设您已经为它创建了CSS Module
+import { API_BASE_URL } from '../../config';
 
 export interface DownloadItemProps {
   title: string;
@@ -20,7 +21,7 @@ const DownloadItem: React.FC<DownloadItemProps> = ({ title, meta, fileName }) =>
 
     try {
       // 1. 构建指向后端 API 的完整 URL
-      const response = await fetch(`http://localhost:3001/download/${fileName}`);
+      const response = await fetch(`${API_BASE_URL}/download/${fileName}`);
 
       // 2. 检查请求是否成功
       if (!response.ok) {
