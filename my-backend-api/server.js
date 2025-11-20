@@ -52,16 +52,18 @@ app.post('/api/send-email', emailLimiter, async (req, res) => {
   // --- 修复 2: 使用更稳定的连接配置解决 ETIMEDOUT ---
   // 不再使用 service: 'gmail'，而是显式指定 host 和 port
   const transporter = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465, // 强制使用 SSL 端口，这在云端更不容易被墙
-    secure: true, // 使用 SSL
-    auth: {
-      // 优先读取环境变量 (Render 上设置的)
-      // 这里的 '您的...' 只是本地兜底，Render 上一定要配置环境变量
-      user: process.env.EMAIL_USER || 'perry971221@gmail.com', 
-      pass: process.env.EMAIL_PASS || 'zjpg yhzs uoue iqxj'
-    }
-  });
+  host: 'smtp.gmail.com',
+  port: 587, // 改用 587 端口
+  secure: false, // 注意：对于 587 端口，这里必须设为 false (表示使用 STARTTLS)
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
+  },
+  // 增加超时设置，避免傻等 2 分钟
+  connectionTimeout: 10000, // 10秒连不上就报错
+  greetingTimeout: 10000,
+  socketTimeout: 10000 
+});
 
   const mailOptions = {
     from: `"${name}" <${process.env.EMAIL_USER}>`, // 发件人最好是自己的邮箱，避免被当成垃圾邮件
