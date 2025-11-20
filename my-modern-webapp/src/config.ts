@@ -4,4 +4,4 @@
 
 export const API_BASE_URL = import.meta.env.DEV 
   ? 'http://localhost:3001' 
-  : 'https://YOUR_BACKEND_URL_HERE.onrender.com';
+  : 'https://shigong-test.onrender.com';
