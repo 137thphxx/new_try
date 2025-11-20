@@ -1,0 +1,74 @@
+.form-container {
+  background-color: #111;
+  padding: 2rem;
+  border-radius: 16px;
+  border: 1px solid #333;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.input, .textarea {
+  width: 100%;
+  padding: 0.8rem;
+  background-color: #222;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.input:focus, .textarea:focus {
+  outline: none;
+  border-color: #2563eb; /* 聚焦时变蓝 */
+}
+
+.textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 1rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-btn:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.submit-btn:disabled {
+  background-color: #444;
+  cursor: not-allowed;
+}
+
+.success-msg {
+  color: #4ade80; /* 绿色 */
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.error-msg {
+  color: #ef4444; /* 红色 */
+  text-align: center;
+  margin-top: 1rem;
+}

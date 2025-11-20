@@ -1,63 +1,85 @@
-import React from 'react';
-import DownloadCategory from './DownloadCategory';
+import React, { useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import styles from './DownloadItem.module.css'; // 假设您已经为它创建了CSS Module
 
-import styles from './Downloads.module.css';
+export interface DownloadItemProps {
+  title: string;
+  meta: string;
+  fileName: string;
+}
 
-// 中文数据
-const downloadDataZh = [
-  {
-    categoryTitle: '📋 产品技术手册',
-    items: [
-      { title: '对位芳纶纤维技术手册', meta: 'PDF • 2.5MB • 2024年最新版', fileName: 'para-aramid-manual-zh.pdf' },
-      { title: '间位芳纶纤维技术手册', meta: 'PDF • 1.8MB • 2024年最新版', fileName: 'meta-aramid-manual-zh.pdf' },
-    ]
-  },
-  {
-    categoryTitle: '🏆 质量认证证书',
-    items: [
-      { title: 'ISO 9001:2015 质量管理体系认证', meta: 'PDF • 1.2MB • 有效期至2027年', fileName: 'iso9001-certificate.pdf' },
-    ]
-  },
-];
+const DownloadItem: React.FC<DownloadItemProps> = ({ title, meta, fileName }) => {
+  const { t } = useLanguage();
+  const [isDownloading, setIsDownloading] = useState(false);
 
-// 英文数据
-const downloadDataEn = [
-    {
-        categoryTitle: '📋 Technical Manuals',
-        items: [
-            { title: 'Para-Aramid Fiber Technical Manual', meta: 'PDF • 2.5MB • 2024 Edition', fileName: 'para-aramid-manual-en.pdf' },
-            { title: 'Meta-Aramid Fiber Technical Manual', meta: 'PDF • 1.8MB • 2024 Edition', fileName: 'meta-aramid-manual-en.pdf' },
-        ]
-    },
-    {
-        categoryTitle: '🏆 Quality Certificates',
-        items: [
-            { title: 'ISO 9001:2015 Certificate', meta: 'PDF • 1.2MB • Valid until 2027', fileName: 'iso9001-certificate.pdf' },
-        ]
-    },
-];
+  // 点击下载的处理函数
+  const handleDownload = async () => {
+    if (isDownloading) return; // 防止重复点击
 
-const Downloads: React.FC = () => {
-  const { language, t } = useLanguage();
-  const downloadData = language === 'zh' ? downloadDataZh : downloadDataEn;
+    setIsDownloading(true);
+
+    try {
+      // 1. 构建指向后端 API 的完整 URL
+      const response = await fetch(`http://localhost:3001/download/${fileName}`);
+
+      // 2. 检查请求是否成功
+      if (!response.ok) {
+        // 如果后端返回404或其它错误，在这里处理
+        const errorData = await response.json();
+        console.error('下载失败:', errorData.message);
+        alert(t('文件下载失败，可能文件不存在。', 'Download failed. The file may not exist.'));
+        setIsDownloading(false);
+        return;
+      }
+
+      // 3. 将响应体转换为 Blob (二进制大对象)
+      const blob = await response.blob();
+      
+      // 4. 创建一个隐藏的 <a> 标签来触发浏览器下载
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', fileName); // 设置下载的文件名
+      document.body.appendChild(link);
+      link.click();
+      
+      // 5. 清理
+      link.parentNode?.removeChild(link);
+      window.URL.revokeObjectURL(url);
+
+    } catch (error) {
+      console.error('下载过程中发生网络错误:', error);
+      alert(t('下载失败，请检查网络连接或联系管理员。', 'Download failed. Please check your network or contact support.'));
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   return (
-    <section id="downloads" className={styles["downloads"]}>
-      <div className={styles["downloads-content"]}>
-        <h2 className={styles["section-title"]}>{t('资料下载中心', 'Download Center')}</h2>
-        <div className={styles["downloads-grid"]}>
-          {downloadData.map(category => (
-            <DownloadCategory
-              key={category.categoryTitle}
-              categoryTitle={category.categoryTitle}
-              items={category.items}
-            />
-          ))}
-        </div>
+    <div className={styles.card}>
+      {/* 左侧图标区域 */}
+      <div className={styles['icon-wrapper']}>
+        {/* 这里放一个 SVG 图标代表 PDF */}
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
       </div>
-    </section>
+
+      {/* 右侧内容区域 */}
+      <div className={styles.content}>
+        <div className={styles.title}>{title}</div>
+        <div className={styles.meta}>{meta}</div>
+        
+        <button className={styles['download-btn']} onClick={handleDownload} disabled={isDownloading}>
+          {isDownloading ? 'Downloading...' : 'Download PDF'}
+        </button>
+      </div>
+    </div>
   );
 };
 
-export default Downloads;
+export default DownloadItem;

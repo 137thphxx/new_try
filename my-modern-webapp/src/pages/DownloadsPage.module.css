@@ -1,0 +1,39 @@
+/* 页面主容器 */
+.container {
+  padding: 120px 2rem 4rem; /* 上方留出导航栏空间 */
+  min-height: 100vh;
+  background-color: #000000; /* 纯黑背景 */
+  color: #ffffff;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 3rem;
+  text-align: center; /* 标题居中 */
+}
+
+.title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(45deg, #fff, #94a3b8); /* 文字渐变效果 */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle {
+  color: #9ca3af;
+  font-size: 1.1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 核心网格布局 */
+.grid {
+  display: grid;
+  /* 自动适应宽度：每列至少 350px，空间不够自动换行 */
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 2rem; /* 卡片之间的间距 */
+  max-width: 1200px;
+  margin: 0 auto;
+}

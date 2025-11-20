@@ -1,0 +1,82 @@
+.card {
+  background-color: #111; /* 深灰色卡片背景 */
+  border: 1px solid #333;
+  border-radius: 16px;
+  padding: 1.5rem;
+  display: flex;
+  align-items: flex-start; /* 内容顶部对齐 */
+  gap: 1.5rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 鼠标悬停时的发光效果 */
+.card:hover {
+  transform: translateY(-5px); /* 微微上浮 */
+  border-color: #555;
+  box-shadow: 0 10px 30px rgba(255, 255, 255, 0.05);
+  background-color: #161616;
+}
+
+/* 左侧图标容器 */
+.icon-wrapper {
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ef4444; /* PDF 红色 */
+}
+
+.content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.4;
+}
+
+.meta {
+  font-size: 0.85rem;
+  color: #888;
+  display: flex;
+  gap: 1rem;
+}
+
+/* 下载按钮 */
+.download-btn {
+  margin-top: 1rem;
+  align-self: flex-start;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.download-btn:hover {
+  opacity: 0.9;
+}
+
+.download-btn:disabled {
+  background-color: #333;
+  color: #666;
+  cursor: not-allowed;
+}
