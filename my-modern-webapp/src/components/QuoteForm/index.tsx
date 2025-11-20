@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import styles from './QuoteForm.module.css';
+import { useLanguage } from '../../context/LanguageContext'; // 引入语言Hook
 import { API_BASE_URL } from '../../config';
 
 const QuoteForm: React.FC = () => {
-  // 定义表单状态
+  const { t } = useLanguage(); // 使用 t 函数
+  
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -11,58 +13,52 @@ const QuoteForm: React.FC = () => {
   });
   
   const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
-  // 处理输入框变化
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // 处理表单提交
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault(); // 阻止页面刷新
+    e.preventDefault();
     setStatus('submitting');
+    setErrorMsg('');
 
     try {
-      // 发送数据给后端
       const response = await fetch(`${API_BASE_URL}/api/send-email`, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // 告诉后端我发的是 JSON
-        },
-        body: JSON.stringify(formData) // 把对象转成字符串发送
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
       });
 
-      const result = await response.json(); // 获取后端返回的 JSON
+      const result = await response.json();
 
       if (response.ok) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
       } else {
-        // --- 修改这里 ---
-        // 直接使用后端返回的具体错误信息 (result.message)
-        // 比如 "请输入有效的电子邮箱地址" 或 "请求过于频繁..."
-        console.error(result.message);
-        alert(result.message); // 或者用更加友好的 UI 显示这个 message
+        // 如果后端返回错误，我们尽量显示通用的双语错误，或者直接显示后端的英文
+        setErrorMsg(result.message || t('发送失败', 'Sending failed'));
         setStatus('error');
       }
     } catch (error) {
-      console.error('网络错误:', error);
+      console.error('Network error:', error);
       setStatus('error');
+      setErrorMsg(t('网络连接错误，请稍后再试。', 'Network error. Please try again later.'));
     }
   };
 
   return (
     <div className={styles['form-container']}>
       <h2 style={{ color: '#fff', marginBottom: '1.5rem', textAlign: 'center' }}>
-        获取产品报价
+        {t('获取产品报价', 'Request a Quote')}
       </h2>
       
       <form onSubmit={handleSubmit}>
         <div className={styles['form-group']}>
-          <label className={styles.label}>您的姓名</label>
+          <label className={styles.label}>
+            {t('您的姓名', 'Your Name')}
+          </label>
           <input 
             type="text" 
             name="name"
@@ -70,12 +66,14 @@ const QuoteForm: React.FC = () => {
             className={styles.input}
             value={formData.name}
             onChange={handleChange}
-            placeholder="请输入您的称呼"
+            placeholder={t('请输入您的称呼', 'Enter your name')}
           />
         </div>
 
         <div className={styles['form-group']}>
-          <label className={styles.label}>电子邮箱</label>
+          <label className={styles.label}>
+            {t('电子邮箱', 'Email Address')}
+          </label>
           <input 
             type="email" 
             name="email"
@@ -88,23 +86,41 @@ const QuoteForm: React.FC = () => {
         </div>
 
         <div className={styles['form-group']}>
-          <label className={styles.label}>咨询内容 / 需求描述</label>
+          <label className={styles.label}>
+            {t('咨询内容 / 需求描述', 'Message / Requirements')}
+          </label>
           <textarea 
             name="message"
             required
             className={styles.textarea}
             value={formData.message}
             onChange={handleChange}
-            placeholder="请描述您感兴趣的产品或具体规格..."
+            placeholder={t(
+              '请描述您感兴趣的产品或具体规格...',
+              'Please describe the products or specifications you are interested in...'
+            )}
           />
         </div>
 
         <button type="submit" className={styles['submit-btn']} disabled={status === 'submitting'}>
-          {status === 'submitting' ? '正在发送...' : '发送询价请求'}
+          {status === 'submitting' 
+            ? t('正在发送...', 'Sending...') 
+            : t('发送询价请求', 'Send Request')
+          }
         </button>
 
-        {status === 'success' && <p className={styles['success-msg']}>✅ 发送成功！我们会尽快联系您。</p>}
-        {status === 'error' && <p className={styles['error-msg']}>❌ 发送失败，请检查网络或稍后再试。</p>}
+        {status === 'success' && (
+          <p className={styles['success-msg']}>
+            {t('✅ 发送成功！我们会尽快联系您。', '✅ Sent successfully! We will contact you soon.')}
+          </p>
+        )}
+        
+        {status === 'error' && (
+          <p className={styles['error-msg']}>
+            {/* 如果有具体的错误信息就显示，否则显示通用错误 */}
+            ❌ {errorMsg || t('发送失败，请检查网络或稍后再试。', 'Sending failed. Please check network.')}
+          </p>
+        )}
       </form>
     </div>
   );

@@ -76,7 +76,11 @@ const DownloadItem: React.FC<DownloadItemProps> = ({ title, meta, fileName }) =>
         <div className={styles.meta}>{meta}</div>
         
         <button className={styles['download-btn']} onClick={handleDownload} disabled={isDownloading}>
-          {isDownloading ? 'Downloading...' : 'Download PDF'}
+        {/* 这里使用 t 函数切换按钮文字 */}
+        {isDownloading 
+          ? t('下载中...', 'Downloading...') 
+          : t('下载 PDF', 'Download PDF')
+        }
         </button>
       </div>
     </div>
