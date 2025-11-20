@@ -1,15 +1,17 @@
 import React from 'react';
-import { useLanguage } from '../../context/LanguageContext';
 import { Link } from 'react-router-dom';
+import { useLanguage } from '../../context/LanguageContext';
 import styles from './Footer.module.css';
 
+// 1. 定义 Logo 图标组件
 const LogoIcon = () => (
   <svg 
-    width="32" 
-    height="32" 
+    width="24"  // 我稍微调小了一点点(从32改到24)，这样在页脚看起来更精致，您可以随时改回32
+    height="24" 
     viewBox="0 0 100 100" 
     fill="none" 
     xmlns="http://www.w3.org/2000/svg"
+    style={{ display: 'block' }} // 防止由于行内元素导致的垂直对齐微小偏差
   >
     <path 
       d="M50 10C27.9 10 10 27.9 10 50C10 72.1 27.9 90 50 90C72.1 90 90 72.1 90 50C90 27.9 72.1 10 50 10ZM50 78C34.5 78 22 65.5 22 50C22 34.5 34.5 22 50 22C65.5 22 78 34.5 78 50C78 65.5 65.5 78 50 78Z" 
@@ -22,38 +24,33 @@ const LogoIcon = () => (
   </svg>
 );
 
-
 const Footer: React.FC = () => {
   const { t } = useLanguage();
-  const currentYear = new Date().getFullYear();
+  const currentYear = new Date().getFullYear(); // 自动获取年份
 
   return (
-    
-    // 错误: styles.sitefooter -> 正确: styles.siteFooter
-    <footer className={styles['site-footer']}>
-      {/* 同样修正以下所有类名 */}
-      <div className={styles['footer-content']}>
-        <div className={styles['footer-left']}>
-          {/* 版权信息将根据年份自动更新 */}
-          士功 © {currentYear} ALL RIGHTS RESERVED
-        </div>
-        <div className={styles['footer-center']}>
-          {/* Logo 位置 */}
+    <footer className={styles.footer}>
+      {/* 左侧：版权信息 */}
+      <div className={styles.copyright}>
+        士功 © {currentYear} ALL RIGHTS RESERVED
+      </div>
+
+      {/* 右侧：链接区域 */}
+      <div className={styles.links}>
+        {/* 2. 在这里放入图标 */}
+        <div style={{ marginRight: '0.5rem', display: 'flex', alignItems: 'center' }}>
           <LogoIcon />
         </div>
-        <div className={styles.links}>
-          <Link to="/privacy" className={styles.link}>
-            {/* 3. 使用双语 */}
-            {t('隐私政策', 'Privacy Policy')}
-          </Link>
+
+        <Link to="/privacy" className={styles.link}>
+          {t('隐私政策', 'Privacy Policy')}
+        </Link>
         
-          <span style={{ margin: '0 10px', color: '#444' }}>|</span>
+        <span style={{ margin: '0 10px', color: '#444' }}>|</span>
         
-          <Link to="/terms" className={styles.link}>
-            {/* 3. 使用双语 */}
-            {t('使用条款', 'Terms of Use')}
-          </Link>
-        </div>
+        <Link to="/terms" className={styles.link}>
+          {t('使用条款', 'Terms of Use')}
+        </Link>
       </div>
     </footer>
   );

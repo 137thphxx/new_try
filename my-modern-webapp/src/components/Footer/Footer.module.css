@@ -1,69 +1,62 @@
-/* Footer Section */
-.site-footer {
-  background-color: #111111; /* 与 body 背景色一致 */
-  border-top: 1px solid #333; /* 在页脚顶部添加一条分割线 */
-  padding: 2rem 0;
-  color: #888; /* 页脚文字颜色稍暗，以示区分 */
+.footer {
+  /* 核心布局：左右两端对齐 + 垂直居中 */
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
+  
+  /* 间距和背景 */
+  padding: 2rem 10%; /* 左右留出 10% 的余地，防止太靠边 */
+  background-color: #000;
+  border-top: 1px solid #222;
+  color: #666;
   font-size: 0.85rem;
-  text-transform: uppercase; /* 文字大写，符合参考图风格 */
-  letter-spacing: 0.05em;
 }
 
-.footer-content {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
+/* 左侧版权信息 */
+.copyright {
+  /* 防止文字换行破坏布局 */
+  white-space: nowrap;
+}
+
+/* 右侧链接区域容器 */
+.links {
   display: flex;
-  justify-content: space-between; /* 关键：让三部分在容器内均匀分布 */
-  align-items: center;
+  align-items: center; /* 让图标、分隔符、文字都垂直居中 */
+  gap: 0.5rem; /* 元素之间的间距 */
 }
 
-.footer-left {
-  flex: 1; /* 占据左侧空间 */
-  text-align: left;
-}
-
-.footer-center {
-  flex: 0 0 auto; /* Logo 不伸缩，保持原始大小 */
-}
-
-.footer-right {
-  flex: 1; /* 占据右侧空间 */
-  text-align: right;
-  display: flex;
-  justify-content: flex-end;
-  gap: 1.5rem; /* 链接之间的间距 */
-}
-
-.footer-right a {
+/* 链接本身 */
+.link {
   color: #888;
   text-decoration: none;
-  transition: color 0.3s ease;
-}
-
-.footer-right a:hover {
-  color: #ffffff; /* 鼠标悬停时变亮 */
-}
-
-/* 链接的基础样式 */
-.link {
-  color: #888; /* 默认灰色，低调一点 */
-  text-decoration: none; /* 去掉默认下划线 */
-  font-size: 0.9rem;
-  transition: color 0.3s ease;
+  transition: color 0.2s;
   cursor: pointer;
 }
 
-/* 鼠标悬停时的效果 */
 .link:hover {
-  color: #fff; /* 悬停变亮白 */
-  text-decoration: underline; /* 悬停出现下划线 */
+  color: #fff;
+  text-decoration: underline;
 }
 
-/* 如果你想让它们横向排列 */
-.links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1rem;
+/* 如果那个圆圈图标是 SVG，限制一下它的大小，防止被撑大 */
+.links svg {
+  width: 20px;
+  height: 20px;
+  display: block; /* 消除图片底部的默认间隙 */
+}
+
+/* --- 手机端适配 --- */
+/* 当屏幕小于 768px 时，变成上下排列 */
+@media (max-width: 768px) {
+  .footer {
+    flex-direction: column; /* 上下排列 */
+    gap: 1.5rem; /* 增加上下间距 */
+    padding: 2rem 1rem;
+    text-align: center;
+  }
+
+  .links {
+    justify-content: center;
+    width: 100%;
+  }
 }
